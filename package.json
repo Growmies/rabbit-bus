@@ -1,0 +1,33 @@
+{
+  "name": "rabbit-bus",
+  "version": "0.0.1",
+  "description": "An event bus written for node + rabbitmq",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Growmies/rabbit-bus.git"
+  },
+  "keywords": [
+    "EventBus",
+    "event",
+    "bus",
+    "rabbitmq"
+  ],
+  "author": "Scott Hillman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Growmies/rabbit-bus/issues"
+  },
+  "homepage": "https://github.com/Growmies/rabbit-bus#readme",
+  "dependencies": {
+    "amqplib": "^0.4.1",
+    "lodash": "^4.12.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
