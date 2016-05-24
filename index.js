@@ -29,7 +29,7 @@ function RabbitBus(connectionOptions) {
           resolve();
           channel.consume(queue, message => {
             listener(_.attempt(JSON.parse, message.content.toString()));
-          });
+          }, { noAck: true });
         })
         .catch(err => {
           reject(err);
