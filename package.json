@@ -1,6 +1,6 @@
 {
   "name": "rabbit-bus",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An event bus written for node + rabbitmq",
   "main": "index.js",
   "scripts": {
