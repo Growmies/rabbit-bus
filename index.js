@@ -1,6 +1,8 @@
 const _    = require('lodash');
 const amqp = require('amqplib');
 const util = require('./util');
+const url  = require('url');
+const validator = require('validator');
 
 const eventBusChannel = 'event-bus';
 
@@ -86,8 +88,9 @@ function RabbitBus(connectionOptions) {
   };
 
   return new Promise((resolve, reject) => {
-    if (_.isString(connectionOptions)) {
-      return amqp.connect(connectionOptions)
+    if (validator.isURL(connectionOptions, { protocols: ['amqps', 'amqp'] })) {
+      const parsedurl = url.parse(connectionOptions);
+      return amqp.connect(connectionOptions, { servername: parsedurl.hostname })
         .then((connection) => {
           this.connection = connection;
           resolve(this);
@@ -103,4 +106,3 @@ function RabbitBus(connectionOptions) {
 }
 
 module.exports = RabbitBus;
-
