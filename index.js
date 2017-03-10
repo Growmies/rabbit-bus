@@ -5,6 +5,9 @@ const url  = require('url');
 const validator = require('validator');
 
 const eventBusChannel = 'event-bus';
+// http://www.squaremobius.net/amqp.node/channel_api.html#channel_publish
+// must be string, time is in milliseconds; default will be 1 hour
+const CHANNEL_PUBLISH_EXPIRATION = (1000 * 60 * 60).toString();
 
 function RabbitBus(connectionOptions) {
   this.subscriberChannels = {};
@@ -15,7 +18,12 @@ function RabbitBus(connectionOptions) {
     return new Promise((resolve, reject) => {
       this.getPublisherChannel(channelName)
         .then(channel => {
-          channel.publish(eventBusChannel, channelName, new Buffer(_.isPlainObject(payload) ? JSON.stringify(payload, util.replaceErrors) :  payload));
+          channel.publish(
+            eventBusChannel,
+            channelName,
+            new Buffer(_.isPlainObject(payload) ? JSON.stringify(payload, util.replaceErrors) :  payload),
+            { expiration: CHANNEL_PUBLISH_EXPIRATION }
+          );
           resolve();
         })
         .catch(err => {
